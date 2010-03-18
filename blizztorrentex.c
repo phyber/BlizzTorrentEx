@@ -8,7 +8,6 @@
 #include <errno.h>
 
 size_t find_torrent_data(FILE *file, size_t *len) {
-	size_t bytesread;
 	size_t fend;
 	int ret;
 
@@ -54,7 +53,7 @@ int copy_file_part(FILE *file, FILE *fout, size_t start, size_t len) {
 	size_t readbytes;
 
 	printf("Copying torrent data to output file...\n");
-	printf("Starting at: 0x%08x with length %zd bytes\n", start, len);
+	printf("Starting at: 0x%08zx with length %zd bytes\n", start, len);
 
 	// Seek to the torrent start
 	ret = fseek(file, start, SEEK_SET);
@@ -137,7 +136,7 @@ int main (int argc, char **argv) {
 	 */
 	fout = fopen(argv[2], "wb");
 	if (fout == NULL) {
-		fprintf(stderr, "Error opening %s for writing: %s\n", strerror(errno));
+		fprintf(stderr, "Error opening %s for writing: %s\n", argv[2], strerror(errno));
 		return 1;
 	}
 
